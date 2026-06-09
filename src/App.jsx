@@ -2,13 +2,19 @@ import React, { Suspense, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ScrollControls } from '@react-three/drei';
 import Scene from './components/Scene';
-import LoadingScreen from './components/LoadingScreen';
+import UI from './components/UI';
 import CustomCursor from './components/CustomCursor';
+import LoadingScreen from './components/LoadingScreen';
 import MatrixRain from './components/MatrixRain';
+import DomainSelectorModal from './components/DomainSelectorModal';
+import DomainContentModal from './components/DomainContentModal';
+import AIAssistant from './components/AIAssistant';
+import { useStore } from './store';
 
 function App() {
   const [theme, setTheme] = useState('cyan'); // 'cyan', 'crimson', or 'matrix'
-  const [isHacked, setIsHacked] = useState(false);
+  const isHacked = theme === 'matrix';
+  const activeProject = useStore((state) => state.activeProject);
 
   useEffect(() => {
     let keyBuffer = '';
@@ -35,20 +41,22 @@ function App() {
 
   return (
     <>
-      <CustomCursor theme={theme} />
       <LoadingScreen />
       {isHacked && <MatrixRain />}
-      
       <div className={`canvas-container theme-${theme}`}>
         <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>
-          <color attach="background" args={['#020205']} />
-          <Suspense fallback={null}>
+          <color attach="background" args={isHacked ? ['#001100'] : ['#020205']} />
+          <React.Suspense fallback={null}>
             <ScrollControls pages={5} damping={0.2}>
               <Scene theme={theme} setTheme={setTheme} isHacked={isHacked} />
             </ScrollControls>
-          </Suspense>
+          </React.Suspense>
         </Canvas>
       </div>
+      <DomainSelectorModal theme={theme} />
+      <DomainContentModal theme={theme} />
+      <AIAssistant />
+      <CustomCursor theme={theme} isHacked={isHacked} />
     </>
   );
 }
