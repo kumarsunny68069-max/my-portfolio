@@ -969,3 +969,109 @@ button.theme-switch:hover {
   animation: pulseLogo 1s infinite alternate;
   color: var(--theme-primary);
 }
+
+/* ========================================================================= */
+/* MOBILE RESPONSIVENESS                                                     */
+/* ========================================================================= */
+@media (max-width: 768px) {
+  /* Modals General */
+  .domain-selector-container {
+    width: 95vw;
+    height: 85vh;
+  }
+  .domain-content-container {
+    width: 95vw;
+    height: 90vh;
+  }
+  .modal-body {
+    padding: 1.5rem;
+  }
+  .modal-title {
+    font-size: 2.2rem;
+  }
+  .close-btn {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  /* Split View (First Modal) */
+  .split-view {
+    flex-direction: column;
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+  .split-divider {
+    width: 80%;
+    height: 1px;
+    margin: 0.5rem 0;
+  }
+  .split-pane {
+    padding: 1.5rem;
+  }
+  .split-pane h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .split-pane p {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  /* About / Resume Grid (Second Modal) */
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .about-section {
+    padding: 2vh 0;
+  }
+  .identity-card, .timeline-card, .skills-card {
+    padding: 1.5rem;
+  }
+  .glitch-hover {
+    width: 120px;
+    height: 120px;
+  }
+  .id-name {
+    font-size: 1.8rem;
+  }
+  .id-actions {
+    flex-direction: column;
+  }
+  .id-actions button {
+    width: 100%;
+  }
+
+  /* Portfolio Grid */
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .portfolio-card {
+    padding: 1.5rem;
+  }
+  .portfolio-card h3 {
+    font-size: 1.4rem;
+  }
+
+  /* AI Assistant Chat */
+  .ai-toggle {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.7rem;
+  }
+  .ai-chat-window {
+    width: calc(100vw - 2rem);
+    height: 400px;
+    bottom: 4.5rem;
+    right: 1rem;
+    left: 1rem;
+  }
+  
+  /* Prevent iOS Auto-Zoom on inputs */
+  input, textarea {
+    font-size: 16px !important;
+  }
+}
+

@@ -14,6 +14,7 @@ import { useStore } from './store';
 function App() {
   const [theme, setTheme] = useState('cyan'); // 'cyan', 'crimson', or 'matrix'
   const isHacked = theme === 'matrix';
+  const isMobile = window.innerWidth < 768;
   const activeProject = useStore((state) => state.activeProject);
 
   useEffect(() => {
@@ -44,7 +45,7 @@ function App() {
       <LoadingScreen />
       {isHacked && <MatrixRain />}
       <div className={`canvas-container theme-${theme}`}>
-        <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>
+        <Canvas dpr={[1, isMobile ? 1 : 1.5]} camera={{ position: [0, 0, 7], fov: 45 }}>
           <color attach="background" args={isHacked ? ['#001100'] : ['#020205']} />
           <React.Suspense fallback={null}>
             <ScrollControls pages={5} damping={0.2}>

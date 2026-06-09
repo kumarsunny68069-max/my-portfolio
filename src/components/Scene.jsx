@@ -216,6 +216,7 @@ function CameraRig() {
 export default function Scene({ theme, setTheme, isHacked }) {
   const themeColor = theme === 'cyan' ? '#00ffff' : (theme === 'crimson' ? '#ff003c' : '#ffffff');
   const altColor = theme === 'cyan' ? '#ff00ff' : (theme === 'crimson' ? '#ffaa00' : '#888888');
+  const isMobile = window.innerWidth < 768;
 
   return (
     <>
@@ -231,18 +232,18 @@ export default function Scene({ theme, setTheme, isHacked }) {
       <Robot />
       <ExploreButton />
       <ElegantParticles themeColor={themeColor} />
-      <MouseTrail themeColor={themeColor} />
+      {!isMobile && <MouseTrail themeColor={themeColor} />}
       
-      <Sparkles count={100} scale={10} size={1} speed={0.1} opacity={0.5} color={themeColor} />
+      <Sparkles count={isMobile ? 40 : 100} scale={10} size={1} speed={0.1} opacity={0.5} color={themeColor} />
       
       <Scroll html style={{ width: '100vw' }}>
         <UI theme={theme} setTheme={setTheme} isHacked={isHacked} />
       </Scroll>
 
-      <EffectComposer disableNormalPass>
-        <Bloom luminanceThreshold={0.5} mipmapBlur intensity={isHacked ? 3.0 : 0.8} />
+      <EffectComposer disableNormalPass multisampling={isMobile ? 0 : 4}>
+        <Bloom luminanceThreshold={0.5} mipmapBlur={!isMobile} intensity={isHacked ? 3.0 : 0.8} />
         {isHacked && <ChromaticAberration blendFunction={BlendFunction.NORMAL} offset={[0.01, 0.01]} />}
-        <Noise opacity={0.02} />
+        {!isMobile && <Noise opacity={0.02} />}
         <Vignette eskil={false} offset={0.1} darkness={1.1} />
       </EffectComposer>
     </>
